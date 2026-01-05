@@ -66,13 +66,28 @@ console.log('- MONGO_URL exists:', !!mongoUrl);
 console.log('- JWT_SECRET exists:', !!jwtSecret);
 
 mongoose.connect(mongoUrl, {
-  dbName: 'smarthealth'
+  dbName: 'smarthealth',
+  serverSelectionTimeoutMS: 5000,
+  socketTimeoutMS: 45000
 })
   .then(() => console.log('✅ MongoDB connected'))
   .catch(err => {
     console.error('❌ MongoDB connection error:', err);
-    process.exit(1);
+    // Don't exit in production, let the app start anyway
+    if (process.env.NODE_ENV !== 'production') {
+      process.exit(1);
+    }
   });
+
+// Health check endpoint for Render
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'ok', timestamp: new Date().toISOString() });
+});
+
+// Health check endpoint for Render
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'ok', timestamp: new Date().toISOString() });
+});
 
 // API Routes
 app.use('/api/auth', authRoutes);
@@ -106,7 +121,7 @@ io.on('connection', (socket) => {
 });
 
 const PORT = process.env.PORT || 4000;
-server.listen(PORT, () => {
+server.listen(PORT, '0.0.0.0', () => {
   console.log(`🚀 Server running on port ${PORT}`);
   if (process.env.NODE_ENV === 'production') {
     console.log(`📦 Serving frontend from: ${path.join(__dirname, '../../web/dist')}`);
