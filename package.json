@@ -2,7 +2,7 @@
   "name": "smart-health-app",
   "version": "1.0.0",
   "scripts": {
-    "build": "cd web && npm install && chmod +x node_modules/.bin/vite && npm run build && cd ../server && npm install",
+    "build": "cd web && npm install && npm run build && cd ../server && npm install",
     "start": "cd server && npm start"
   },
   "engines": {

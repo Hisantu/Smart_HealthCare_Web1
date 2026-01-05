@@ -3,7 +3,7 @@ services:
     name: smart-health-app
     env: node
     plan: free
-    buildCommand: npm install && cd web && npm install && chmod +x node_modules/.bin/vite && npm run build && cd ../server && npm install
+    buildCommand: npm install && cd web && npm install && npm run build && cd ../server && npm install
     startCommand: cd server && npm start
     envVars:
       - key: NODE_ENV
