@@ -1,0 +1,26 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch Backend Server",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceFolder}/smart_health/server/src/index.js",
+            "env": {
+                "NODE_ENV": "development"
+            },
+            "console": "integratedTerminal",
+            "restart": true,
+            "runtimeExecutable": "nodemon"
+        },
+        {
+            "name": "Launch Frontend",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceFolder}/smart_health/web/node_modules/.bin/vite",
+            "args": ["dev"],
+            "cwd": "${workspaceFolder}/smart_health/web",
+            "console": "integratedTerminal"
+        }
+    ]
+}
