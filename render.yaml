@@ -1,26 +1,16 @@
 services:
   - type: web
-    name: smart-health-backend
+    name: smart-health-app
     env: node
     plan: free
-    buildCommand: cd server && npm install
+    buildCommand: npm install && cd web && npm install && npm run build && cd ../server && npm install
     startCommand: cd server && npm start
     envVars:
       - key: NODE_ENV
         value: production
       - key: PORT
-        value: 4000
+        value: 10000
       - key: MONGO_URL
         value: mongodb+srv://santoshsantu92067_db_user:santosh1603@cluster1.j98wqmk.mongodb.net/?appName=Cluster1
       - key: JWT_SECRET
         value: your_super_secure_jwt_secret_key_here_change_this_in_production
-
-  - type: web
-    name: smart-health-frontend
-    env: node
-    plan: free
-    buildCommand: cd web && npm install && npm run build
-    startCommand: cd web && npm run preview
-    envVars:
-      - key: VITE_API_URL
-        value: https://smart-health-backend.onrender.com/api
